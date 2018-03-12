@@ -70,23 +70,25 @@ void vector_t::push_back(int value)
 		elements_[0] = value;
 	}
 	else {
-		int *tmp = new int[size_];
-		for (std::size_t i = 0; i < size_; ++i) {
-			tmp[i] = elements_[i];
+		if(size_<capacity_){
+			size_++;
+			elements_[size_-1] = value;
 		}
-		delete[] elements_;
-		
-		if (size_ == capacity_) {
-			capacity_ *= 2;
-		}
+		else if (size_ == capacity_) {
+		capacity_ *= 2;
 		size_++;
-
+		int *tmp = new int[size_-1];
+		for (std::size_t i = 0; i < size_-1; ++i) {
+			tmp[i] = elements_[i];
+			}
+		delete[] elements_;
 		elements_ = new int[capacity_];
 		for (std::size_t i = 0; i < size_; ++i) {
 			if( i != size_-1) elements_[i] = tmp[i];
 			else elements_[i] = value;
-		}
+			}
 		delete[] tmp;
+		}
 	}
 }
 
