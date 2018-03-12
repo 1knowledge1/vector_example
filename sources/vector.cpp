@@ -70,7 +70,7 @@ void vector_t::push_back(int value)
 		elements_[0] = value;
 	}
 	else {
-		int *tmp = new int[capacity_];
+		int *tmp = new int[size_];
 		for (std::size_t i = 0; i < size_; ++i) {
 			tmp[i] = elements_[i];
 		}
@@ -86,6 +86,7 @@ void vector_t::push_back(int value)
 			if( i != size_-1) elements_[i] = tmp[i];
 			else elements_[i] = value;
 		}
+		delete[] tmp;
 	}
 }
 
