@@ -27,7 +27,6 @@ public:
 	T operator [](std::size_t index) const;
 
 	bool operator ==(vector_t const & other) const;
-	friend bool operator != (vector_t const & lhs, vector_t const & rhs);
 };
 template<typename T>
 bool operator !=(vector_t<T> const & lhs, vector_t<T> const & rhs);
@@ -90,7 +89,9 @@ bool vector_t<T>::operator ==(vector_t const & other) const
 template <typename T>
 vector_t<T>::~vector_t()
 {
+    if(elements_!=nullptr){
 	delete[] elements_;
+    }
 }
 
 template <typename T>
@@ -174,14 +175,15 @@ T vector_t<T>::operator [](std::size_t index) const
 
 template <typename T>
 bool operator !=(vector_t<T> const & lhs, vector_t<T> const & rhs)
-{
-	if (rhs.size() != lhs.size()) {
-		return true;
-	}
-	for (int i = 0; i<rhs.size(); i++) {
-		if (lhs.elements_[i] != rhs.elements_[i]) {
-			return true;
-		}
-	}
-	return false;
+{ 
+	bool result=false;
+  	if(rhs.size()!=lhs.size()){
+    		return true;
+ 	}
+  
+ 	if(!(lhs==rhs)){
+      		result=true;
+      		return result;
+  	}
+  	return result;  
 }
