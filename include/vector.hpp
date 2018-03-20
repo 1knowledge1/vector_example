@@ -15,7 +15,7 @@ public:
 	vector_t & operator =(vector_t const & other);
 	~vector_t();
 	
-	void at(std::size_t index) const;	
+        T & at(std::size_t index) const;	
 	
 	std::size_t size() const;
 	std::size_t capacity() const;
@@ -32,11 +32,12 @@ template<typename T>
 bool operator !=(vector_t<T> const & lhs, vector_t<T> const & rhs);
 
 template <typename T>
-void vector_t<T>::at(std::size_t index) const
+T & vector_t<T>::at(std::size_t index) const
 {
     if(index >= capacity_){
         throw "Index out of range!"; 
     }
+    return elements_[index];
 }
 
 template <typename T>
@@ -162,14 +163,12 @@ void vector_t<T>::pop_back()
 template <typename T>
 T & vector_t<T>::operator [](std::size_t index)
 {
-    at(index);
     return elements_[index];
 }
 
 template <typename T>
 T vector_t<T>::operator [](std::size_t index) const
 {
-    at(index);
     return elements_[index];
 }
 
